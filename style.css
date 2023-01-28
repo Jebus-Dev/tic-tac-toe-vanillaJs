@@ -1,0 +1,58 @@
+* {
+    /* background: #000; */
+}
+
+body {
+    /* background: #0C0032; */
+}
+
+/* switch mode */
+
+
+
+
+
+.chartContainer {
+    width: clamp(300px, 90vw , 600px);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    margin: auto;
+    gap: 20px;
+    perspective: 1000px;;
+}
+
+main .chart {
+    transform-style: preserve-3d;
+    aspect-ratio: 1 / 1;
+    border-radius: 20px;
+    background: #190061;
+    box-shadow: #240090  0 10px 1px;
+    cursor: pointer;
+    transition: transform 1s ease-out;
+}
+
+main .chart:hover{
+    animation: clearBox 1s infinite normal none running;
+    /* transform: translateX(20px); */
+
+}
+
+.chartContainer .ex{
+    fill: #9be6e2;
+}
+
+.chartContainer .ou{
+    fill: #ffc7f4;
+}
+
+
+@keyframes clearBox {
+    0% {
+        transform: translateZ(0, 0);
+    }
+
+    50% {
+        transform: rotateX(90deg) translateZ(100px);
+    }
+}
