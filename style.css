@@ -15,6 +15,7 @@ body {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     margin: auto;
+    
     gap: 20px;
 }
 
@@ -24,16 +25,16 @@ body {
 }
 
 
-.chart {
+.spot {
     aspect-ratio: 1 / 1;
     border-radius: 20px;
     background: #4C443E;
-    transform: translate(10px, -10px);
-    transition: all .3s ;
+    transform: translate(5px, -5px);
+    transition: all .2s ;
     outline: 2px solid #A9E5BB;
 }
 
-.chart:hover{
+.spot:hover{
     transform:translate(0, 0);
 }
 
