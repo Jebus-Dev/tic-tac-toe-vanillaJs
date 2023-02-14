@@ -3,11 +3,10 @@
 }
 
 body {
-    background: #A9E5BB;
+    background: #192a32;
 }
 
 /* switch mode */
-
 
 .chartContainer {
     width: clamp(300px, 90vw , 600px);
@@ -15,35 +14,40 @@ body {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     margin: auto;
-    
     gap: 20px;
 }
 
 .mainChart {
-    border-radius: 20px;
-    background: #4C443E;
+    background: #0e202a;
+    border-radius: 30px;
+
 }
 
 
 .spot {
     aspect-ratio: 1 / 1;
-    border-radius: 20px;
-    background: #4C443E;
-    transform: translate(5px, -5px);
+    background: #1f3540;
+    transform: translateY(-10px);
     transition: all .2s ;
-    outline: 2px solid #A9E5BB;
+    /* outline: 1px solid #A9E5BB; */
+    border-radius: 30px;
 }
 
 .spot:hover{
     transform:translate(0, 0);
 }
 
+.chartContainer .ex, .ou {
+    width: 50%;
+    align-self: center;;
+}
+
 .chartContainer .ex{
-    fill: #FBE267;
+    fill: #31c4be;
 }
 
 .chartContainer .ou{
-    fill: #8EC1EF;
+    fill: #f2b237;
 }
 
 
