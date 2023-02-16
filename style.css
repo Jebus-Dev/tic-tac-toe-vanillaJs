@@ -1,10 +1,29 @@
+ @import url('https://fonts.cdnfonts.com/css/virgo-01');
+
 * {
     /* background: #000; */
 }
 
 body {
-    background: #192a32;
+    
+    /* background: #e9ecef; */
+    background: #4e148c;
 }
+
+.title {
+    font-size: 5em;
+    font-family: 'Virgo 01', sans-serif;
+    color: #fbfbff;   
+    text-shadow:0 0 20px #040f16;                     
+    text-align: center;
+    transition: all .3s;
+    cursor: crosshair;
+}
+
+.title:hover{
+    transform: scale(1.1);
+}
+
 
 /* switch mode */
 
@@ -14,11 +33,12 @@ body {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     margin: auto;
-    gap: 20px;
+    gap: 15px;
 }
 
 .mainChart {
-    background: #0e202a;
+    /* background: #6c757d; */
+    background: #2c0735;
     border-radius: 30px;
 
 }
@@ -26,33 +46,32 @@ body {
 
 .spot {
     aspect-ratio: 1 / 1;
-    background: #1f3540;
+    /* background: #ced4da; */
+    background: #4f329e;
     transform: translateY(-10px);
     transition: all .2s ;
-    /* outline: 1px solid #A9E5BB; */
     border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .spot:hover{
     transform:translate(0, 0);
 }
 
-.chartContainer .ex, .ou {
-    width: 50%;
-    align-self: center;;
+.chartContainer svg {
+    /* width: 85%; */
+    margin: 10px;
+    display: flex;
 }
 
 .chartContainer .ex{
-    fill: #31c4be;
+    /* fill: #06d6a0; */
+    fill: #f72585;
 }
 
 .chartContainer .ou{
-    fill: #f2b237;
-}
-
-
-@keyframes clearBox {
-    50% {
-        transform: rotateX(90deg) translateZ(100px);
-    }
+    /* fill: #ef476f; */
+    fill: #4cc9f0;
 }
