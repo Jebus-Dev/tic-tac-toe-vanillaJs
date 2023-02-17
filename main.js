@@ -2,8 +2,14 @@
 const newGameButton = document.querySelector('#newGame');
 const board  = (document.querySelectorAll('.spot'));
 const print = document.querySelector("#chartContainer");
+const btnRestartGame = document.querySelector('#restartGame');
 let turn = true;
 let logicSpaces = new Array(9);
+
+btnRestartGame.addEventListener('click', () => {
+    restartGame();
+})
+
 
 const printTic = (spaceblank) => {
     const htmlPrint = `
@@ -16,7 +22,6 @@ const printTic = (spaceblank) => {
     document.querySelector(`#${spaceblank}`).innerHTML = htmlPrint;
         
 }
-
 const printTac = (spaceblank) => {
     const htmlPrint = `
     <svg class="ou" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11.998 2c5.517 0 9.997 4.48 9.997 9.998 0 5.517-4.48 9.997-9.997 9.997-5.518 0-9.998-4.48-9.998-9.997 0-5.518 4.48-9.998 9.998-9.998zm0 1.5c-4.69 0-8.498 3.808-8.498 8.498s3.808 8.497 8.498 8.497 8.497-3.807 8.497-8.497-3.807-8.498-8.497-8.498z" fill-rule="nonzero"/></svg>
@@ -31,6 +36,7 @@ const printTac = (spaceblank) => {
 
 const restartGame = () => {
     for (const element of board) {
+        // console.log(element)
         element.firstElementChild.remove();
     }
     turn = true;
@@ -44,7 +50,7 @@ const logic = (id) => {
     const arr = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
     let indexId = arr.indexOf(id);
     turn ? logicSpaces[indexId] = 'X': logicSpaces[indexId] = 'O';
-    playerHasWon();
+    console.log( playerHasWon());
 }
 
 // winners
@@ -59,12 +65,14 @@ const winningCombos = [
     [2, 4, 6],
 ]
 
-function playerHasWon() {
+const playerHasWon = () => {
     for (const condition of winningCombos) {
         let [a, b, c] = condition
 
         if(logicSpaces[a] && (logicSpaces[a] == logicSpaces[b] && logicSpaces[a] == logicSpaces[c])) {
-            return [a,b,c]
+            
+            console.log('Ganaste');
+            return [a,b,c];
         }
     }
     return false
@@ -77,7 +85,7 @@ print.addEventListener('click', (e) => {
     let spaceClass = e.target.className;
     let space  = e.target.id;
     
-    if (spaceClass == "spot" ) {
+    if (spaceClass == "spot" ) { 
         turn == true ? printTic(space) 
                      : printTac(space);
         logic(space)
@@ -88,5 +96,5 @@ print.addEventListener('click', (e) => {
 
 })
 
-restartGame();
+
 
