@@ -10,32 +10,51 @@
 </head>
 
 <body>
-    <style> @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Khojki:wght@600&display=swap');</style>
-<h1 class="title">TIC TAC TOE</h1>
+    <div class="mainContainer">
+        <h1 class="title">TIC TAC TOE  X  O</h1>
 
-<section class="filters">
-    <div class ="modeFilter">
-    <p>Mode</p>
-    <input type="radio" name="mode" id="mode" value="2players">
-    
-    <input type="radio" name="mode" id="mode" value="bot">
-    </div>
-</section>
+        <section class="filters">
+            <div class ="modeFilter">
+            <p>Mode</p>
+            <input type="radio" name="mode" id="mode" value="2players">
+            
+            <input type="radio" name="mode" id="mode" value="bot">
+            </div>
+        </section>
 
-    <main>
-        <div id="chartContainer" class="chartContainer">
-            <div class="mainChart"><div id="one" class="spot"></div></div>
-            <div class="mainChart"><div id="two" class="spot"></div></div>
-            <div class="mainChart"><div id="three" class="spot"></div></div>
-            <div class="mainChart"><div id="four" class="spot"></div></div>
-            <div class="mainChart"><div id="five" class="spot"></div></div>
-            <div class="mainChart"><div id="six" class="spot"></div></div>
-            <div class="mainChart"><div id="seven" class="spot"></div></div>
-            <div class="mainChart"><div id="eight" class="spot"></div></div>
-            <div class="mainChart"><div id="nine" class="spot"></div></div>
+        <div class="res">
+            
+            <div class="turnIcon">
+                <p class="ticText">X</p>
+                <p class="tacText">O</p>
+            </div>    
+            
+            <button id="restartGame" class="restartGame">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-reload" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M19.933 13.041a8 8 0 1 1 -9.925 -8.788c3.899 -1 7.935 1.007 9.425 4.747"></path>
+                    <path d="M20 4v5h-5"></path>
+                 </svg>
+            </button>
         </div>
-    </main>
-    <div class="score"></div>
+        <main>
+            <div id="chartContainer" class="chartContainer">
+                <div class="mainChart"><div id="one" class="spot"></div></div>
+                <div class="mainChart"><div id="two" class="spot"></div></div>
+                <div class="mainChart"><div id="three" class="spot"></div></div>
+                <div class="mainChart"><div id="four" class="spot"></div></div>
+                <div class="mainChart"><div id="five" class="spot"></div></div>
+                <div class="mainChart"><div id="six" class="spot"></div></div>
+                <div class="mainChart"><div id="seven" class="spot"></div></div>
+                <div class="mainChart"><div id="eight" class="spot"></div></div>
+                <div class="mainChart"><div id="nine" class="spot"></div></div>
+            </div>
+        </main>
+
+
+        <div class="score"></div>   
+
+        </div>
     <script src="main.js"></script>
 </body>
 </html>
