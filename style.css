@@ -1,10 +1,12 @@
  @import url('https://fonts.cdnfonts.com/css/virgo-01');
 
-* {
-
-}
+ :root {
+    /* --clamp-text:; */
+    --clamp-container: clamp(300px, 90vw , 600px); 
+ }
 
 body {
+    font-family: 'Virgo 01', sans-serif;
     background: #4e148c;
 }
 
@@ -17,10 +19,20 @@ body {
     /* background: #e9ecef; */
 }
 
+.filters {
+    width: 100%;
+}
+/* Mode Section */
+.modeFilter {
+    font-size: 1.5em;
+    display: flex;
+    align-items: start;
+}
+
+
 
 .title {
     font-size: 4em;
-    font-family: 'Virgo 01', sans-serif;
     color: #fbfbff;   
     text-shadow:0 0 20px #040f16;                     
     text-align: center;
@@ -33,12 +45,15 @@ body {
 }
 
 
+/* ------------------------------------- turn and restar game section ------------------------------------- */
 .res {
     width: 100%;
+    margin: 10px 0;
     display: flex;
     justify-content: space-between;
 }
 
+/* Visible Turn */
 .turnIcon {
     display: flex;
     justify-content: space-between;
@@ -47,7 +62,6 @@ body {
 
 .turnIcon p {
     font-size: 3em;
-    font-family: 'Virgo 01', sans-serif;
     margin: 0 5px;
 }
 
@@ -56,11 +70,12 @@ body {
 }
 
 .turnIcon .tacText {
-    color: #3288a3;
+    color: #4cc9f0;
 }
 
-.restartGame {
-    padding: 20px 20px;
+/* Restart Game Button */
+.restartCurrentGame {
+    padding: 0 20px;
     background: #df7373;
     border: none;
     border-radius: 15px;
@@ -68,67 +83,69 @@ body {
     transition: all .1s;
 }
 
-.restartGame:focus {
-    border: none;
-    outline: none;
+.restartCurrentGame:focus-visible {
+    outline: 2px solid #fff; 
 }
 
-.restartGame svg {
+.restartCurrentGame:focus-visible svg {
+    transform: rotate3d(0, -1, 0, 180deg) rotate(120deg);    
+}
+
+
+.restartCurrentGame svg {
     stroke: #fff;
-    transform: rotate(45deg);
-    transition: transform .2s;
+    transform: rotate3d(0, -1, 0, 180deg) rotate(-45deg);
+    transition: transform .5s;
 }
 
-.restartGame:hover svg {
-    transform: rotate(18 5deg);    
+.restartCurrentGame:hover svg {
+    transform: rotate3d(0, -1, 0, 180deg) rotate(120deg);
+   
 }
 
-.restartGame:active {
-    transform: translateY(5px);
+.restartCurrentGame:active {
+    transform: translateY(5px) ;
     box-shadow: none;
     stroke: #000;
 }
 
 
+/* ------------------------------------- Dashboard -------------------------------------   */
 
-
-/* switch mode */
 
 .chartContainer {
-    width: clamp(300px, 90vw , 600px);
+    width: var(--clamp-container);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     margin: 20px auto;
-    gap: 18px;
+    gap: 20px;
 }
-
-.mainChart {
-    /* background: #6c757d; */
-    background: #2c0735;
-    border-radius: 30px;
-
-}
-
 
 .spot {
     aspect-ratio: 1 / 1;
-    /* background: #ced4da; */
     background: #4f329e;
+    outline: 4px solid #2c0735;
+    box-shadow: 0 10px #2c0735;
     transform: translateY(-10px);
-    transition: all .2s ;
+    transition: transform .2s, box-shadow .2s ;
     border-radius: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.spot:focus-visible {
+    outline: 2px solid #fff; 
+}
+
 .spot:active{
     transform:translate(0, 0);
+    box-shadow: none;
 }
 
 .chartContainer svg {
-    /* width: 85%; */
+    width: 100%;
     margin: 10px;
     display: flex;
 }
@@ -141,4 +158,65 @@ body {
 .chartContainer .ou{
     /* fill: #ff715b; */
     fill: #4cc9f0;
+}
+
+
+
+/* Score section  */
+
+.scoreSection {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.scoreSection .resetScore {
+    display: none;
+    width: var(--clamp-container);
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background: #cc444b;
+    padding: 20px;
+    border: 4px solid #852b30;
+    border-radius: 10px; 
+    box-shadow: 0 10px #852b30;
+    cursor: pointer;
+    color: #fff;
+    opacity: 0;
+}
+
+.scoreSection:hover .resetScore {
+    display: flex;
+    opacity: 1;
+}
+
+.scoreSection .score {
+    text-align: center;
+    width: 33%;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.scoreSection .pOne {
+    background: #f72585;
+    border: 4px solid #ad2482;
+    box-shadow: 0 5px #ad2482;
+
+}
+
+.scoreSection .draw {
+    background: #8d99ae;
+    border: 4px solid #5c6470;
+    box-shadow: 0 5px #5c6470;
+}
+
+.scoreSection .pTwo {
+    background: #4cc9f0;
+    border: 4px solid #2d96b9;
+    box-shadow: 0 5px #2d96b9;
 }
