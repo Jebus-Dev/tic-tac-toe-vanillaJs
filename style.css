@@ -206,6 +206,11 @@ body {
     box-shadow: none;
 }
 
+.chartContainer .spot.winnerSpot {
+    background: #8367c7;
+    /* transform: scale(1.5); */
+}
+
 .chartContainer svg {
     aspect-ratio: 1 / 1;
     width: 100%;
@@ -221,7 +226,6 @@ body {
     /* fill: #ff715b; */
     fill: #4cc9f0;
 }
-
 
 
 /* Score section  */
