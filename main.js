@@ -1,6 +1,6 @@
 import {restartGame, print } from './events.js'
 
-const board = document.querySelector("#chartContainer");
+export const board = document.querySelector("#chartContainer");
 const btnRestartGame = document.querySelector('#restartGame');
 
 
