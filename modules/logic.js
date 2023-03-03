@@ -1,9 +1,14 @@
+import {playerOne, playerTwo} from './players.js'
+
 
 export let turn = true;
 export const slots = document.querySelectorAll('.spot');
 let logicSpaces = new Array(9);
-const turnX = document.querySelector('#ticText');
-const turnY = document.querySelector('#tacText');
+
+let scoreTic = 0;
+let scoreDraw = 0;
+let scoreTac = 0;
+
 
 const winningCombos = [
     [0, 1, 2],
@@ -16,11 +21,8 @@ const winningCombos = [
     [2, 4, 6],
 ]
 
-
-
-
 export const  turnTrue = () => {
-    toggleVisiblePlayerTurn()
+    toggleVisibleTurn()
     turn = true;
 }
 
@@ -56,21 +58,27 @@ export const finishedGame = () => {
 }
 
 export const restart = () => {
-    let [a, b, c] = hasWon();
     
-    slots[a].classList.remove('winnerSpot');
-    slots[b].classList.remove('winnerSpot');
-    slots[c].classList.remove('winnerSpot');
+    if (hasWon()) {
+        let [a, b, c] = hasWon();
+        slots[a].classList.remove('winnerSpot');
+        slots[b].classList.remove('winnerSpot');
+        slots[c].classList.remove('winnerSpot');
+    }
     
-    restartLogicSpaces();
+    logicSpaces = new Array(9);
+    
+    slots.forEach(buttons => {
+        buttons.disabled = false; 
+    });
+    
     turnTrue();
+
     for (const element of slots) {
-        slots .disabled = true;
         if(element.firstElementChild){
             element.firstElementChild.remove();
         }
     }
-
 }
 
 export const printWinner = () => {
@@ -81,21 +89,40 @@ export const printWinner = () => {
     slots[c].classList.add('winnerSpot');
 }
 
-export const winner = () => {
+export const updateScore = () => {
     const [a, b, c] = hasWon();
     let winner;
     if (logicSpaces[a] == 'X') {
+        scoreTic = scoreTic + 1;
+        document.querySelector('#score-tic').innerHTML = scoreTic;
         return 'X';
+
+    } else if( logicSpaces[a] == 'O'){
+        scoreTac = scoreTac + 1;
+        document.querySelector('#score-tac').innerHTML = scoreTac;
+        return 'O';
     } else {
-        return 'O'
+        document.querySelector('#score-draw').innerHTML = scoreDraw;
     }
 }
 
-export const restartLogicSpaces = () => {
-    logicSpaces = new Array(9);
+export const toggleVisibleTurn = () => {
+    let turnX = document.querySelector('#ticText');
+    let turnY = document.querySelector('#tacText');
+    turn == true ? (turnX.classList.add('active'), turnY.classList.remove('active'))
+                 : (turnY.classList.add('active'), turnX.classList.remove('active') );
 }
 
-export const toggleVisiblePlayerTurn = () => {
-        turn == true ? (turnX.classList.add('active'), turnY.classList.remove('active'))
-                     : (turnY.classList.add('active'), turnX.classList.remove('active') );
+export const print = (e) => {
+    let spaceClass = e.target.className;
+    let space  = e.target.id;
+
+    if ( spaceClass == 'spot' ) { 
+        turn == true ? playerOne(space)
+                     : playerTwo(space);
+        logicSpot(space);
+        hasWon() ? (modal.showModal(), printWinner(), finishedGame()) : (toggleTurn(), toggleVisibleTurn());
+        
+    }
+    updateScore()
 }

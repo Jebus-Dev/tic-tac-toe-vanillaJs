@@ -19,7 +19,7 @@
                     <div>
                         <p>2 players</p>
                         <label class="checkBox">
-                            <input type="radio" id="radio" name="mode" value="mode">
+                            <input type="radio"checked="checked" id="radio" name="mode" value="mode">
                             <span></span>
                         </label>    
                     </div>
@@ -34,20 +34,25 @@
         </section>
 
 
-        <div class="res">
+        <div class="restartSection">
             <div class="turnIcon">
                 <p id="ticText" class="ticText">X</p>
                 <p id="tacText" class="tacText">O</p>
             </div>    
         
-            <button id="restartGame" class="restartCurrentGame">
+            <button id="restart" class="restart">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-reload" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                     <path d="M19.933 13.041a8 8 0 1 1 -9.925 -8.788c3.899 -1 7.935 1.007 9.425 4.747"></path>
                     <path d="M20 4v5h-5"></path>
                  </svg>
             </button>
+
+            <!-- <button id="newGame" class="newGame">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M23.677 18.52c.914 1.523-.183 3.472-1.967 3.472h-19.414c-1.784 0-2.881-1.949-1.967-3.472l9.709-16.18c.891-1.483 3.041-1.48 3.93 0l9.709 16.18z"/></svg>
+            </button> -->
         </div>
+
         <main>
             <div id="chartContainer" class="chartContainer">
                 <button id="one" class="spot"></button>
@@ -64,18 +69,17 @@
 
 
         <div class="scoreSection">
-            <div class="score pOne"><p>Player One <p>0</p></p></div>
-            <div class="score draw"><p>Draw<p>0</p></p></div>
-            <div class="score pTwo"><p>Player two<p>0</p></p></div>
+            <div class="score pOne"><p>Player One <p id="score-tic">0</p></p></div>
+            <div class="score draw"><p>Draw<p id="score-draw">0</p></p></div>
+            <div class="score pTwo"><p>Player two<p id="score-tac">0</p></p></div>
         </div>   
 
     </div>    
 
     <dialog id="modal" class="modalContainer">
-        <p>YOU WON!</p>
-        <p>TAKES THE ROUND</p>
+        <p id="status" class="status"></p>
         <button id="btnCerrarModal">QUIT</button>
-        <button>NEXT ROUND</button>
+        <button id="next-round">NEXT ROUND</button>
     </dialog>
 
 
