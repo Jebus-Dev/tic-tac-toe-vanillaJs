@@ -1,15 +1,3 @@
-import {restartGame, print } from './events.js'
+import { game } from './events.js'
 
-export const board = document.querySelector("#chartContainer");
-const btnRestartGame = document.querySelector('#restartGame');
-
-
-
-
-btnRestartGame.addEventListener('click', () => {
-    restartGame();
-})
-
-board.addEventListener('click', (e) => {
-    print(e);
-})
+game();
