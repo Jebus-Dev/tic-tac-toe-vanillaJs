@@ -3,11 +3,14 @@ import {playerOne, playerTwo} from './players.js'
 
 export let turn = true;
 export const slots = document.querySelectorAll('.spot');
-let logicSpaces = ['', '', '', '', '','', '', '',];
+let logicSpaces = ['', '', '', '', '','', '', '', ''];
 let draw;
 let scoreTic = 0;
 let scoreDraw = 0;
 let scoreTac = 0;
+const modal = document.querySelector('#modal');
+const btnCerrarModal = document.querySelector('#btnCerrarModal');
+const btnNextRound = document.querySelector('#next-round');
 
 
 const winningCombos = [
@@ -39,7 +42,7 @@ export const logicSpot = (id) => {
 }
 // winners
 
-export const hasWon = () => {
+const hasWon = () => {
     for (const condition of winningCombos) {
         let [a, b, c] = condition
         
@@ -50,7 +53,7 @@ export const hasWon = () => {
     return false
 }
 
-export const finishedGame = () => {
+const finishedGame = () => {
     slots.forEach(buttons => {
         buttons.disabled = true;
     });
@@ -58,7 +61,7 @@ export const finishedGame = () => {
 
 
 
-export const printWinner = () => {
+const printWinner = () => {
     let [a, b, c] = hasWon();
     
     slots[a].classList.add('winnerSpot');
@@ -66,7 +69,7 @@ export const printWinner = () => {
     slots[c].classList.add('winnerSpot');
 }
 
-export const updateScore = () => {
+const updateScore = () => {
     let [a,b,c] = [];
     if (hasWon()){
      [a,b,c] = hasWon();
@@ -89,7 +92,7 @@ export const updateScore = () => {
     }
 }
 
-export const toggleVisibleTurn = () => {
+const toggleVisibleTurn = () => {
     let turnX = document.querySelector('#ticText');
     let turnY = document.querySelector('#tacText');
     turn == true ? (turnX.classList.add('active'), turnY.classList.remove('active'))
@@ -99,7 +102,16 @@ export const toggleVisibleTurn = () => {
 const showModal = ( status ) => {
     if (status !== 'draw') {
         
-        console.log(status)
+        const contentWinnerModal = `
+        <p id="status" class="status"></p>
+        <button id="btnCerrarModal">QUIT</button>
+        <button id="next-round">NEXT ROUND</button>
+        `;
+
+        document.querySelector('#modal').innerHTML = contentWinnerModal;
+
+
+        modal.showModal();
         
         
     } else {
@@ -110,6 +122,24 @@ const showModal = ( status ) => {
 
 const draws = (slogicSpaces) => {
     return slogicSpaces !== '';
+}
+
+// btnCerrarModal.addEventListener('click', () => {
+//     modal.close(); 
+// })
+
+// btnNextRound.addEventListener('click', () => {
+//     restart();
+//     modal.close();
+// })
+
+const disableButtonPressed = (slot) => {
+
+    for (const element of slots) {
+        if (element.id == slot) {
+            element.disabled = true;
+        }
+    }    
 }
 
 
@@ -141,28 +171,25 @@ export const restart = () => {
 }
 
 
-
-
-
 export const print = (e) => {
     let spaceClass = e.target.className;
     let space  = e.target.id;
-    console.log(logicSpaces);
     if ( spaceClass == 'spot' ) { 
-
+        
         turn == true ? playerOne(space)
-                     : playerTwo(space);
+        : playerTwo(space);
+        
         logicSpot(space);
+        disableButtonPressed(space);
+        
         if (hasWon()) {
             showModal(updateScore()),
             printWinner(),
             finishedGame();
         } else if (!hasWon() && logicSpaces.every(draws) ) {
-            updateScore(),
-            finishedGame();
+            updateScore();
         } else {
             toggleTurn(), toggleVisibleTurn();
         }
-        
     }
 }
