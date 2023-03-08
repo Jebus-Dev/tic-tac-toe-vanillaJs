@@ -3,8 +3,8 @@ import {playerOne, playerTwo} from './players.js'
 
 export let turn = true;
 export const slots = document.querySelectorAll('.spot');
-let logicSpaces = new Array(9);
-
+let logicSpaces = ['', '', '', '', '','', '', '',];
+let draw;
 let scoreTic = 0;
 let scoreDraw = 0;
 let scoreTac = 0;
@@ -37,7 +37,6 @@ export const logicSpot = (id) => {
     turn ? logicSpaces[indexId] = 'X': logicSpaces[indexId] = 'O';
     return logicSpaces;
 }
-
 // winners
 
 export const hasWon = () => {
@@ -57,6 +56,66 @@ export const finishedGame = () => {
     });
 }
 
+
+
+export const printWinner = () => {
+    let [a, b, c] = hasWon();
+    
+    slots[a].classList.add('winnerSpot');
+    slots[b].classList.add('winnerSpot');
+    slots[c].classList.add('winnerSpot');
+}
+
+export const updateScore = () => {
+    let [a,b,c] = [];
+    if (hasWon()){
+     [a,b,c] = hasWon();
+    }
+    
+
+    if (logicSpaces[a] == 'X') {
+        scoreTic = scoreTic + 1;
+        document.querySelector('#score-tic').innerHTML = scoreTic;
+        return 'X';
+
+    } else if(logicSpaces[a] == 'O'){
+        scoreTac = scoreTac + 1;
+        document.querySelector('#score-tac').innerHTML = scoreTac;
+        return 'O';
+    } else{
+        scoreDraw = scoreDraw + 1;
+        document.querySelector('#score-draw').innerHTML = scoreDraw;
+        return 'draw';
+    }
+}
+
+export const toggleVisibleTurn = () => {
+    let turnX = document.querySelector('#ticText');
+    let turnY = document.querySelector('#tacText');
+    turn == true ? (turnX.classList.add('active'), turnY.classList.remove('active'))
+                 : (turnY.classList.add('active'), turnX.classList.remove('active') );
+}
+
+const showModal = ( status ) => {
+    if (status !== 'draw') {
+        
+        console.log(status)
+        
+        
+    } else {
+        
+        console.log( 'hola' ) 
+    }
+}
+
+const draws = (slogicSpaces) => {
+    return slogicSpaces !== '';
+}
+
+
+
+
+
 export const restart = () => {
     
     if (hasWon()) {
@@ -66,7 +125,7 @@ export const restart = () => {
         slots[c].classList.remove('winnerSpot');
     }
     
-    logicSpaces = new Array(9);
+    logicSpaces = ['', '', '', '', '','', '', '',];
     
     slots.forEach(buttons => {
         buttons.disabled = false; 
@@ -81,48 +140,29 @@ export const restart = () => {
     }
 }
 
-export const printWinner = () => {
-    let [a, b, c] = hasWon();
-    
-    slots[a].classList.add('winnerSpot');
-    slots[b].classList.add('winnerSpot');
-    slots[c].classList.add('winnerSpot');
-}
 
-export const updateScore = () => {
-    const [a, b, c] = hasWon();
-    let winner;
-    if (logicSpaces[a] == 'X') {
-        scoreTic = scoreTic + 1;
-        document.querySelector('#score-tic').innerHTML = scoreTic;
-        return 'X';
 
-    } else if( logicSpaces[a] == 'O'){
-        scoreTac = scoreTac + 1;
-        document.querySelector('#score-tac').innerHTML = scoreTac;
-        return 'O';
-    } else {
-        document.querySelector('#score-draw').innerHTML = scoreDraw;
-    }
-}
 
-export const toggleVisibleTurn = () => {
-    let turnX = document.querySelector('#ticText');
-    let turnY = document.querySelector('#tacText');
-    turn == true ? (turnX.classList.add('active'), turnY.classList.remove('active'))
-                 : (turnY.classList.add('active'), turnX.classList.remove('active') );
-}
 
 export const print = (e) => {
     let spaceClass = e.target.className;
     let space  = e.target.id;
-
+    console.log(logicSpaces);
     if ( spaceClass == 'spot' ) { 
+
         turn == true ? playerOne(space)
                      : playerTwo(space);
         logicSpot(space);
-        hasWon() ? (modal.showModal(), printWinner(), finishedGame()) : (toggleTurn(), toggleVisibleTurn());
+        if (hasWon()) {
+            showModal(updateScore()),
+            printWinner(),
+            finishedGame();
+        } else if (!hasWon() && logicSpaces.every(draws) ) {
+            updateScore(),
+            finishedGame();
+        } else {
+            toggleTurn(), toggleVisibleTurn();
+        }
         
     }
-    updateScore()
 }

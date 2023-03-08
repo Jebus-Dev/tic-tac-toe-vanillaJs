@@ -290,23 +290,10 @@ button:active {
     width: 33%;
     padding: 20px;
     border-radius: 10px;
-}
-
-.scoreSection .pOne {
-    background: #2c0735;
-    border: 4px solid #9e05c4;
-
-}
-
-.scoreSection .draw {
     background: #2c0735;
     border: 4px solid #9e05c4;
 }
 
-.scoreSection .pTwo {
-    background: #2c0735;
-    border: 4px solid #9e05c4;
-}
 
 .modalContainer::backdrop {
     background: rgba(255, 255, 255, .3);

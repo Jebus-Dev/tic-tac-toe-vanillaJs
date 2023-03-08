@@ -17,7 +17,7 @@ export const game = () => {
     })
 
     btnCerrarModal.addEventListener('click', () => {
-        modal.close();
+        modal.close(); 
     })
 
     btnNextRound.addEventListener('click', () => {
