@@ -11,6 +11,14 @@ let scoreTac = 0;
 const modal = document.querySelector('#modal');
 const btnCerrarModal = document.querySelector('#btnCerrarModal');
 const btnNextRound = document.querySelector('#next-round');
+const openModal = document.querySelector('#openModal');
+
+openModal.addEventListener('click', () => {
+    modal.showModal();
+
+    modal.classList.add('modal-show');
+
+})
 
 
 const winningCombos = [
@@ -85,7 +93,7 @@ const updateScore = () => {
         scoreTac = scoreTac + 1;
         document.querySelector('#score-tac').innerHTML = scoreTac;
         return 'O';
-    } else{
+    } else {
         scoreDraw = scoreDraw + 1;
         document.querySelector('#score-draw').innerHTML = scoreDraw;
         return 'draw';
@@ -101,37 +109,41 @@ const toggleVisibleTurn = () => {
 
 const showModal = ( status ) => {
     if (status !== 'draw') {
+
+        modal.classList.add('modal-show');
+        const firstElement = modal.lastElementChild;
+
+        const winner = document.createElement('p');
+
+        winner.innerHTML = `<p class="u-won"> YOU WON!! </p> 
+        <p class="paragraph-winner">${ status } <label class="takes-round">TAKES THE ROUND</label></p>`;
         
-        const contentWinnerModal = `
-        <p id="status" class="status"></p>
-        <button id="btnCerrarModal">QUIT</button>
-        <button id="next-round">NEXT ROUND</button>
-        `;
+        modal.append( winner );
+        modal.insertBefore(winner, firstElement);
 
-        document.querySelector('#modal').innerHTML = contentWinnerModal;
-
-
+        
         modal.showModal();
         
-        
     } else {
-        
-        console.log( 'hola' ) 
+
+        modal.classList.add('modal-show');
+        const firstElement = modal.lastElementChild;
+
+        const winner = document.createElement('p');
+        winner.classList.add('paragraph-winner');
+
+        winner.innerHTML = `DRAW`;
+        document.querySelector('#modal').appendChild( winner );
+        modal.insertBefore(winner, firstElement);
+
+        modal.showModal();
+
     }
 }
 
 const draws = (slogicSpaces) => {
     return slogicSpaces !== '';
 }
-
-// btnCerrarModal.addEventListener('click', () => {
-//     modal.close(); 
-// })
-
-// btnNextRound.addEventListener('click', () => {
-//     restart();
-//     modal.close();
-// })
 
 const disableButtonPressed = (slot) => {
 
@@ -145,6 +157,15 @@ const disableButtonPressed = (slot) => {
 
 
 
+btnCerrarModal.addEventListener('click', () => {
+    modal.close();
+    modal.classList.remove('modal-show');
+})
+
+btnNextRound.addEventListener('click', () => {
+    restart();
+    modal.close();
+})
 
 export const restart = () => {
     
@@ -152,11 +173,11 @@ export const restart = () => {
         let [a, b, c] = hasWon();
         slots[a].classList.remove('winnerSpot');
         slots[b].classList.remove('winnerSpot');
-        slots[c].classList.remove('winnerSpot');
+        slots[c].classList.remove('winnerSpot');    
+        modal.firstElementChild.remove();
     }
-    
     logicSpaces = ['', '', '', '', '','', '', '',];
-    
+
     slots.forEach(buttons => {
         buttons.disabled = false; 
     });
@@ -168,6 +189,9 @@ export const restart = () => {
             element.firstElementChild.remove();
         }
     }
+
+    modal.classList.remove('modal-show');
+
 }
 
 
@@ -177,7 +201,7 @@ export const print = (e) => {
     if ( spaceClass == 'spot' ) { 
         
         turn == true ? playerOne(space)
-        : playerTwo(space);
+                     : playerTwo(space);
         
         logicSpot(space);
         disableButtonPressed(space);
@@ -187,7 +211,7 @@ export const print = (e) => {
             printWinner(),
             finishedGame();
         } else if (!hasWon() && logicSpaces.every(draws) ) {
-            updateScore();
+            showModal(updateScore());
         } else {
             toggleTurn(), toggleVisibleTurn();
         }

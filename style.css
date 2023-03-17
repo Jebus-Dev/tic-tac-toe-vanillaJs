@@ -13,6 +13,7 @@ body {
 .mainContainer {
     max-width: 600px;
     margin: auto;
+    height: 2000px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -242,12 +243,17 @@ button:active {
 
 .chartContainer .ex{
     /* fill: #1ea896; */
-    fill: #f72585;
+    color: #f72585;
+    height: auto;
+    position: relative;
+    transform: rotate(45deg);
 }
 
 .chartContainer .ou{
     /* fill: #ff715b; */
-    fill: #4cc9f0;
+    height: auto;
+    color: #4cc9f0;
+    /* fill: #4cc9f0; */
 }
 
 
@@ -296,10 +302,60 @@ button:active {
 
 
 .modalContainer::backdrop {
-    background: rgba(255, 255, 255, .3);
+    background: rgba(0, 0, 0, .5);
 }
 
 .modalContainer {
     border: none;
-    border-radius: 10px;
+    width: 100vw;
+    min-height: 300px;
+    background: #4f329e;
+}
+
+.modalContainer.modal-show {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px 0px;
+}
+
+.modalContainer p {
+    text-align: center;
+    color: #f72585;
+    font-size: 3rem;
+}
+
+.modalContainer button {
+    cursor: pointer;
+    padding: 20px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.modalContainer .btn-close {
+    background: #84a98c;
+    box-shadow: 0 5px 0 #59735f;
+}
+
+.modalContainer .btn-next {
+    background: #49a078;
+    box-shadow: 0 5px 0 #216869;
+}
+
+.modalContainer .modal-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+}
+
+.modalContainer .u-won {
+    color: #fff;
+}
+
+.modalContainer .takes-round {
+    font-size: 3rem;
+}
+.modalContainer .paragraph-winner {
+    font-size: 3.8rem;
 }
