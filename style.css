@@ -58,7 +58,7 @@ body {
 
 }
 
-.mainContainer {
+.main-container {
     max-width: 600px;
     height: 100vh;
     margin: auto;
@@ -179,14 +179,14 @@ body {
   }
 
 /* ------------------------------------- turn and restar game section ------------------------------------- */
-.restartSection {
+.restart-section {
     width: 100%;
     margin: 10px 0;
     display: flex;
     justify-content: space-between;
 }
 
-/* Restart Game Button */
+/* btn-restart Game Button */
 button {
     padding: 0 20px;
     border: none;
@@ -194,24 +194,24 @@ button {
     transition: all .1s;
 }
 
-.restart {
+.btn-restart {
     height: 60px;
     background: #df7373;
     box-shadow: 0px 5px 5px#cc444b;
 }
 
-.restart svg {
+.btn-restart svg {
     stroke: #fff;
     transform: rotate3d(0, -1, 0, 180deg) rotate(-45deg);
     transition: transform .5s;
 }
 
-.restart:focus-visible svg {
+.btn-restart:focus-visible svg {
     transform: rotate3d(0, -1, 0, 180deg) rotate(120deg); 
     box-shadow: 0px 5px 10px#cc444b;
 }
 
-.restart:hover svg {
+.btn-restart:hover svg {
     transform: rotate3d(0, -1, 0, 180deg) rotate(120deg);
 }
 
@@ -228,7 +228,7 @@ button:active {
 /* ------------------------------------- Dashboard -------------------------------------   */
 
 
-.chartContainer {
+.chart-container {
     display: grid;
     grid-template-columns: repeat(3, minmax(100px, 200px));
     /* grid-template-rows: repeat(3, 1fr); */
@@ -266,36 +266,36 @@ button:active {
     box-shadow: none;
 }
 
-.chartContainer .spot.winner-tic {
+.chart-container .spot.winner-tic {
     background: var(--tic-color);
 }
 
-.chartContainer .spot.winner-tic svg {
+.chart-container .spot.winner-tic svg {
     color: var(--spot-color);
 }
 
-.chartContainer .spot.winner-tac {
+.chart-container .spot.winner-tac {
     background: var(--tac-color);
     color: var(--spot-color);
 }
 
-.chartContainer .spot.winner-tac svg{
+.chart-container .spot.winner-tac svg{
     color: var(--spot-color);
 }
 
-.chartContainer svg {
+.chart-container svg {
     aspect-ratio: 1 / 1;
     width: 100%;
     display: flex;
     height: auto;
 }
 
-.chartContainer .ex{
+.chart-container .ex{
     color: var(--tic-color);
     transform: rotate(45deg);
 }
 
-.chartContainer .ou{
+.chart-container .ou{
     height: 80%;
     color: var(--tac-color);
 }
@@ -303,7 +303,7 @@ button:active {
 
 /* Score section  */
 
-.scoreSection {
+.score-section {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -312,15 +312,15 @@ button:active {
     color: var(--accent-color);
 }
 
-.scoreSection div:last-child {
+.score-section div:last-child {
     color: var(--tac-color);
 }
 
-.scoreSection div:first-child {
+.score-section div:first-child {
     color: var(--tic-color);
 }
 
-.scoreSection .resetScore {
+.score-section .resetScore {
     display: none;
     width: var(--clamp-container);
     position: absolute;
@@ -338,12 +338,12 @@ button:active {
     opacity: 0;
 }
 
-.scoreSection:hover .resetScore {
+.score-section:hover .resetScore {
     display: flex;
     opacity: 1;
 }
 
-.scoreSection .score {
+.score-section .score {
     text-align: center;
     width: 33%;
     padding: 20px;
@@ -352,11 +352,11 @@ button:active {
 }
 
 
-.modalContainer::backdrop {
+.modal-container::backdrop {
     background: rgba(0, 0, 0, .5);
 }
 
-.modalContainer {
+.modal-container {
     border: none;
     width: 100vw;
     min-height: 300px;
@@ -365,7 +365,7 @@ button:active {
     animation: fade-in .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
 }
 
-.modalContainer.modal-show {
+.modal-container.modal-show {
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -374,50 +374,50 @@ button:active {
     
 }
 
-.modalContainer p {
+.modal-container p {
     text-align: center;
     font-size: 3rem;
 }
 
-.modalContainer .u-won {
+.modal-container .u-won {
     color: var(--modal-text-color);
 }
-.modalContainer .paragraph-winner-tic {
+.modal-container .paragraph-winner-tic {
     font-size: 8rem;
     color: var(--tic-color);
 }
 
-.modalContainer .paragraph-winner-tac {
+.modal-container .paragraph-winner-tac {
     font-size: 8rem;
     color: var(--tac-color);
 }
 
 
-.modalContainer button {
+.modal-container button {
     cursor: pointer;
     padding: 20px;
     color: #fff;
     font-weight: 600;
 }
 
-.modalContainer .btn-close {
+.modal-container .btn-close {
     background: #84a98c;
     box-shadow: 0 5px 0 #59735f;
 }
 
-.modalContainer .btn-next {
+.modal-container .btn-next {
     background: #49a078;
     box-shadow: 0 5px 0 #216869;
 }
 
-.modalContainer .modal-buttons-container {
+.modal-container .modal-buttons-container {
     display: flex;
     justify-content: space-between;
     width: 300px;
 }
 
 
-.modalContainer .takes-round {
+.modal-container .takes-round {
     font-size: 3rem;
 }
 
@@ -459,15 +459,15 @@ button:active {
     p {
         font-size: 18px;
     }
-    .mainContainer {
+    .main-container {
         width: 95%; 
     }
 
-    .chartContainer {
+    .chart-container {
         gap: 10px;
     }
     
-    .chartContainer .spot {
+    .chart-container .spot {
         
         box-shadow: 0 6px var(--border-color);
         outline: 2px solid var(--border-color);
@@ -487,11 +487,11 @@ button:active {
         height: inherit;
         padding: 10px;
     }
-    .restartSection {
+    .restart-section {
         flex-flow: column;
     }
 
-    .scoreSection .score {
+    .score-section .score {
         padding: 10px;
     }
     
@@ -502,7 +502,7 @@ button:active {
     .filters p {
         font-size: 14px;
     }
-    .scoreSection, .scoreSection p {
+    .score-section, .score-section p {
         gap: 5px;
         font-size: 12px;
     }

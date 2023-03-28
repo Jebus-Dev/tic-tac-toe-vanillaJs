@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +11,7 @@
 
 <body>
     
-    <div class="mainContainer">
+    <div class="main-container">
         <div class="title-switch">    
             <h1 class="title">TIC TAC TOE</h1>
         
@@ -20,7 +20,7 @@
                 <div class="slider"></div>
             </label>
         </div>
-        <div class="restartSection">
+        <div class="restart-section">
             <div class="filters">
                 <div>
                     <p>2 players</p>
@@ -38,7 +38,7 @@
                 </div>
             </div>
 
-            <button id="restart" class="restart">
+            <button id="btn-restart" class="btn-restart">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-reload" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                     <path d="M19.933 13.041a8 8 0 1 1 -9.925 -8.788c3.899 -1 7.935 1.007 9.425 4.747"></path>
@@ -48,7 +48,7 @@
         </div>
 
         <main>
-            <div id="chartContainer" class="chartContainer">
+            <div id="chart-container" class="chart-container">
                 <button id="one" class="spot"></button>
                 <button id="two" class="spot"></button>
                 <button id="three" class="spot"></button>
@@ -62,7 +62,7 @@
         </main>
 
 
-        <div class="scoreSection">
+        <div class="score-section">
             <div class="score"><p>PLAYER ONE <p id="score-tic">0</p></p></div>
             <div class="score"><p>DRAW<p id="score-draw">0</p></p></div>
             <div class="score"><p>PLAYER TWO<p id="score-tac">0</p></p></div>
@@ -70,9 +70,9 @@
 
     </div>    
 
-    <dialog id="modal" class="modalContainer">
+    <dialog id="modal" class="modal-container">
         <div class="modal-buttons-container">
-            <button class="btn-close" id="btnCerrarModal">QUIT</button>
+            <button class="btn-close" id="close-modal">QUIT</button>
             <button class="btn-next" id="next-round">NEXT ROUND</button>
         </div>
     </dialog>
