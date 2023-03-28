@@ -1,25 +1,16 @@
 import {playerOne, playerTwo} from './players.js'
 
 
-export let turn = true;
-export const slots = document.querySelectorAll('.spot');
-let logicSpaces = ['', '', '', '', '','', '', '', ''];
-let draw;
+export let turn = 'X';
+export let logicSpaces = ['', '', '', '', '','', '', '', ''];
+let winnerRound;
 let scoreTic = 0;
 let scoreDraw = 0;
 let scoreTac = 0;
-const modal = document.querySelector('#modal');
-const btnCerrarModal = document.querySelector('#btnCerrarModal');
+export const slots = document.querySelectorAll('.spot');
+const btnCloseModal = document.querySelector('#close-modal');
 const btnNextRound = document.querySelector('#next-round');
-const openModal = document.querySelector('#openModal');
-
-openModal.addEventListener('click', () => {
-    modal.showModal();
-
-    modal.classList.add('modal-show');
-
-})
-
+const modal = document.querySelector('#modal');
 
 const winningCombos = [
     [0, 1, 2],
@@ -32,23 +23,35 @@ const winningCombos = [
     [2, 4, 6],
 ]
 
-export const  turnTrue = () => {
-    toggleVisibleTurn()
-    turn = true;
-}
-
-export const toggleTurn = () => {
-    turn = !turn;
-    return turn;
-}
-
-export const logicSpot = (id) => {
-    const idSpot = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
-    let indexId = idSpot.indexOf(id);
-    turn ? logicSpaces[indexId] = 'X': logicSpaces[indexId] = 'O';
+export const printLogicTurn = (id) => {
+    const searchId = Array.from(slots).findIndex((spot) => spot.id === id)
+    turn == 'X' ? logicSpaces[searchId] = 'X': logicSpaces[searchId] = 'O';
     return logicSpaces;
 }
-// winners
+
+const updateScore = () => {
+
+    let [a,b,c] = [];
+    
+    if (hasWon()){
+     [a,b,c] = hasWon();
+    }
+    
+    if (logicSpaces[a] == 'X') {
+        scoreTic = scoreTic + 1;
+        document.querySelector('#score-tic').innerHTML = scoreTic;
+        winnerRound = 'X';
+
+    } else if(logicSpaces[a] == 'O'){
+        scoreTac = scoreTac + 1;
+        document.querySelector('#score-tac').innerHTML = scoreTac;
+        winnerRound = 'O';
+    } else {
+        scoreDraw = scoreDraw + 1;
+        document.querySelector('#score-draw').innerHTML = scoreDraw;
+        winnerRound = 'draw';
+    }
+}
 
 const hasWon = () => {
     for (const condition of winningCombos) {
@@ -61,91 +64,13 @@ const hasWon = () => {
     return false
 }
 
-const finishedGame = () => {
+const disableButtons = () => {
     slots.forEach(buttons => {
         buttons.disabled = true;
     });
 }
 
-
-
-const printWinner = () => {
-    let [a, b, c] = hasWon();
-    
-    slots[a].classList.add('winnerSpot');
-    slots[b].classList.add('winnerSpot');
-    slots[c].classList.add('winnerSpot');
-}
-
-const updateScore = () => {
-    let [a,b,c] = [];
-    if (hasWon()){
-     [a,b,c] = hasWon();
-    }
-    
-
-    if (logicSpaces[a] == 'X') {
-        scoreTic = scoreTic + 1;
-        document.querySelector('#score-tic').innerHTML = scoreTic;
-        return 'X';
-
-    } else if(logicSpaces[a] == 'O'){
-        scoreTac = scoreTac + 1;
-        document.querySelector('#score-tac').innerHTML = scoreTac;
-        return 'O';
-    } else {
-        scoreDraw = scoreDraw + 1;
-        document.querySelector('#score-draw').innerHTML = scoreDraw;
-        return 'draw';
-    }
-}
-
-const toggleVisibleTurn = () => {
-    let turnX = document.querySelector('#ticText');
-    let turnY = document.querySelector('#tacText');
-    turn == true ? (turnX.classList.add('active'), turnY.classList.remove('active'))
-                 : (turnY.classList.add('active'), turnX.classList.remove('active') );
-}
-
-const showModal = ( status ) => {
-    if (status !== 'draw') {
-
-        modal.classList.add('modal-show');
-        const firstElement = modal.lastElementChild;
-
-        const winner = document.createElement('p');
-
-        winner.innerHTML = `<p class="u-won"> YOU WON!! </p> 
-        <p class="paragraph-winner">${ status } <label class="takes-round">TAKES THE ROUND</label></p>`;
-        
-        modal.append( winner );
-        modal.insertBefore(winner, firstElement);
-
-        
-        modal.showModal();
-        
-    } else {
-
-        modal.classList.add('modal-show');
-        const firstElement = modal.lastElementChild;
-
-        const winner = document.createElement('p');
-        winner.classList.add('paragraph-winner');
-
-        winner.innerHTML = `DRAW`;
-        document.querySelector('#modal').appendChild( winner );
-        modal.insertBefore(winner, firstElement);
-
-        modal.showModal();
-
-    }
-}
-
-const draws = (slogicSpaces) => {
-    return slogicSpaces !== '';
-}
-
-const disableButtonPressed = (slot) => {
+const dissablePressedButton = (slot) => {
 
     for (const element of slots) {
         if (element.id == slot) {
@@ -154,10 +79,51 @@ const disableButtonPressed = (slot) => {
     }    
 }
 
+const winnerPlacePrint = () => {
+    let [a, b, c] = hasWon();
+    const winnerClass = winnerRound == 'X' ? 'winner-tic' : 'winner-tac';
+    slots[a].classList.add(winnerClass);
+    slots[b].classList.add(winnerClass);
+    slots[c].classList.add(winnerClass);
+}
 
+const winnerModal = () => {
 
+    modal.classList.add("modal-show");
+    const firstElement = modal.lastElementChild;
+    const winner = document.createElement("p");
+  
+    if (winnerRound !== "draw") {
+      const classWinner = winnerRound === "X" ? "paragraph-winner-tic" : "paragraph-winner-tac";
+  
+      winner.innerHTML = `
+        <p class="u-won"> YOU WON!! </p>
+        <div>
+          <p class="${classWinner}">${winnerRound}</p>
+          <label class="takes-round">TAKES THE ROUND</label>
+        </div>`;
+    } else {
+      winner.classList.add("paragraph-winner");
+      winner.innerHTML = "DRAW";
+    }
+  
+    modal.append(winner);
+    modal.insertBefore(winner, firstElement);
+    modal.showModal();
 
-btnCerrarModal.addEventListener('click', () => {
+}
+
+export const boardStatus = (slogicSpaces) => {
+    return slogicSpaces != '';
+}
+
+const cleanModal = () => {
+    if (hasWon() || logicSpaces.every(boardStatus)) {
+        modal.firstElementChild.remove();
+    }
+}
+
+btnCloseModal.addEventListener('click', () => {
     modal.close();
     modal.classList.remove('modal-show');
 })
@@ -167,53 +133,67 @@ btnNextRound.addEventListener('click', () => {
     modal.close();
 })
 
+
+
+
 export const restart = () => {
     
+    cleanModal();
     if (hasWon()) {
         let [a, b, c] = hasWon();
-        slots[a].classList.remove('winnerSpot');
-        slots[b].classList.remove('winnerSpot');
-        slots[c].classList.remove('winnerSpot');    
-        modal.firstElementChild.remove();
+        const winner = winnerRound == 'X' ? 'winner-tic' : 'winner-tac';
+        slots[a].classList.remove(winner);
+        slots[b].classList.remove(winner);
+        slots[c].classList.remove(winner);
     }
     logicSpaces = ['', '', '', '', '','', '', '',];
-
+    
     slots.forEach(buttons => {
         buttons.disabled = false; 
     });
     
-    turnTrue();
-
-    for (const element of slots) {
-        if(element.firstElementChild){
-            element.firstElementChild.remove();
+    turn = 'X';
+    
+    for (const spot of slots) {
+        if(spot.firstElementChild){
+            spot.firstElementChild.remove();
         }
     }
-
     modal.classList.remove('modal-show');
-
 }
 
 
-export const print = (e) => {
-    let spaceClass = e.target.className;
-    let space  = e.target.id;
-    if ( spaceClass == 'spot' ) { 
-        
-        turn == true ? playerOne(space)
-                     : playerTwo(space);
-        
-        logicSpot(space);
-        disableButtonPressed(space);
-        
-        if (hasWon()) {
-            showModal(updateScore()),
-            printWinner(),
-            finishedGame();
-        } else if (!hasWon() && logicSpaces.every(draws) ) {
-            showModal(updateScore());
-        } else {
-            toggleTurn(), toggleVisibleTurn();
+
+export const print = (e, mode) => {
+
+    if ( mode == 'two-players') {
+        let spaceClass = e.target.className;
+        let space  = e.target.id;
+
+        if ( spaceClass == 'spot' ) { 
+            
+            turn == 'X' ? playerOne(space)
+                        : playerTwo(space);
+            
+            printLogicTurn(space);
+            dissablePressedButton(space);
+            if (hasWon()) {
+                updateScore(),
+                winnerPlacePrint(),
+                winnerModal(),
+                disableButtons();
+            } else if (!hasWon() && logicSpaces.every(boardStatus)) {    
+                updateScore();
+                winnerModal();
+            } else {
+                turn = turn == 'X' ? turn = 'O'
+                                   : turn = 'X';
+            }
         }
-    }
+        
+    } else if (mode == 'bot') {
+        alert('El bot no esta listo');
+    }    
+
+
 }
