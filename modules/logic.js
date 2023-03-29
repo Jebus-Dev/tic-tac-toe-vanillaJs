@@ -1,8 +1,9 @@
 import {playerOne, playerTwo} from './players.js'
 
-
 export let turn = 'X';
 export let logicSpaces = ['', '', '', '', '','', '', '', ''];
+export let logicSpacesBot = ['one', 'two', 'three', 'four', 'five','six', 'seven', 'eight', 'nine'];
+
 let winnerRound;
 let scoreTic = 0;
 let scoreDraw = 0;
@@ -11,7 +12,6 @@ export const slots = document.querySelectorAll('.spot');
 const btnCloseModal = document.querySelector('#close-modal');
 const btnNextRound = document.querySelector('#next-round');
 const modal = document.querySelector('#modal');
-
 const winningCombos = [
     [0, 1, 2],
     [3, 4, 5],
@@ -164,11 +164,10 @@ export const restart = () => {
 
 
 
-export const print = (e, mode) => {
+export const print = (pMove) => {
 
-    if ( mode == 'two-players') {
-        let spaceClass = e.target.className;
-        let space  = e.target.id;
+        let spaceClass = pMove.target.className;
+        let space  = pMove.target.id;
 
         if ( spaceClass == 'spot' ) { 
             
@@ -190,10 +189,56 @@ export const print = (e, mode) => {
                                    : turn = 'X';
             }
         }
-        
-    } else if (mode == 'bot') {
-        alert('El bot no esta listo');
-    }    
+}
 
 
+export const spotbot = () => {
+
+    let random = Math.floor(Math.random() * (9 - 0 + 1)) + 0;
+    if ( logicSpaces[random] != '' ) {
+        return spotbot();
+    } else {
+        juegoBot(logicSpacesBot[random]);
+    }
+}
+
+const turno = () => {
+    turn = turn == 'X' ? 'O' 
+                       : 'X';
+    turn == 'O' && spotbot(); 
+}
+
+
+export const juegoBot = (move) =>  {
+    if (turn == 'X') {
+        const space = move.target.id;
+        const spaceClass = move.target.classList;
+        if (spaceClass == 'spot') {
+            playerOne(space);
+            printLogicTurn(space);
+            dissablePressedButton(space);
+            if (!logicSpaces.every(boardStatus) && !hasWon()) {
+                setTimeout(() => {
+                    turno();
+                }, '500');
+            }
+        }   
+    } else {
+        playerTwo(move);
+        printLogicTurn(move);
+        dissablePressedButton(move);
+        turn = 'X';
+    }
+
+
+    if (hasWon()) {
+        updateScore(),
+        winnerPlacePrint(),
+        winnerModal(),
+        disableButtons();
+    } else if (!hasWon() && logicSpaces.every(boardStatus)) {    
+        updateScore();
+        winnerModal();
+        disableButtons();
+    }
 }
