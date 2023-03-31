@@ -1,4 +1,4 @@
-import { restart, print, logicSpaces, boardStatus, juegoBot} from './modules/logic.js'
+import { restart, print, logicSpaces, boardStatus, juegoBot, mostrartScoresLocalStorage} from './modules/logic.js'
 
 const board = document.querySelector('#chart-container');
 const btnRestartGame = document.querySelector('#btn-restart');
@@ -6,6 +6,7 @@ const options = document.querySelectorAll('input[name="mode"]');
 const toggleColor = document.querySelector('#color-toggle');
 let mode;
 
+mostrartScoresLocalStorage();
 
 btnRestartGame.addEventListener('click', () => {
     restart();

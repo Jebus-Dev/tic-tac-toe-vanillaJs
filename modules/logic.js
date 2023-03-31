@@ -5,9 +5,12 @@ export let logicSpaces = ['', '', '', '', '','', '', '', ''];
 export let logicSpacesBot = ['one', 'two', 'three', 'four', 'five','six', 'seven', 'eight', 'nine'];
 
 let winnerRound;
-let scoreTic = 0;
-let scoreDraw = 0;
-let scoreTac = 0;
+let scores = {
+    tic: 0,
+    draw: 0,
+    tac: 0
+}
+
 export const slots = document.querySelectorAll('.spot');
 const btnCloseModal = document.querySelector('#close-modal');
 const btnNextRound = document.querySelector('#next-round');
@@ -38,19 +41,22 @@ const updateScore = () => {
     }
     
     if (logicSpaces[a] == 'X') {
-        scoreTic = scoreTic + 1;
-        document.querySelector('#score-tic').innerHTML = scoreTic;
+        scores.tic++;
+        document.querySelector('#score-tic').innerHTML = scores.tic;
         winnerRound = 'X';
 
     } else if(logicSpaces[a] == 'O'){
-        scoreTac = scoreTac + 1;
-        document.querySelector('#score-tac').innerHTML = scoreTac;
+        scores.tac++;
+        document.querySelector('#score-tac').innerHTML = scores.tac;
         winnerRound = 'O';
     } else {
-        scoreDraw = scoreDraw + 1;
-        document.querySelector('#score-draw').innerHTML = scoreDraw;
+        scores.draw++;
+        document.querySelector('#score-draw').innerHTML = scores.draw;
         winnerRound = 'draw';
     }
+
+    setScores();
+
 }
 
 const hasWon = () => {
@@ -138,6 +144,9 @@ btnNextRound.addEventListener('click', () => {
 
 export const restart = () => {
     
+    
+    console.log(getScores().tic)
+
     cleanModal();
     if (hasWon()) {
         let [a, b, c] = hasWon();
@@ -241,4 +250,36 @@ export const juegoBot = (move) =>  {
         winnerModal();
         disableButtons();
     }
+}
+
+// local storage
+
+const setScores = () => {
+    localStorage.setItem ('scores', JSON.stringify(scores));
+}
+
+const getScores = () => {
+    
+    const scoresJSON = JSON.parse(localStorage.getItem('scores'));
+    if (scoresJSON) {
+        return scoresJSON;
+    } else {
+        return {
+            tic: 0,
+            draw: 0,
+            tac: 0
+        };
+    }
+
+}
+
+export const mostrartScoresLocalStorage = () => {
+    const scoresRecuperados = getScores();
+    scores.tic = scoresRecuperados.tic;
+    scores.draw = scoresRecuperados.draw;
+    scores.tac = scoresRecuperados.tac;
+    document.querySelector('#score-tic').innerHTML = scoresRecuperados.tic;
+    document.querySelector('#score-draw').innerHTML = scoresRecuperados.draw;
+    document.querySelector('#score-tac').innerHTML = scoresRecuperados.tac;
+    
 }
