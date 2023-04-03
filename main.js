@@ -18,15 +18,15 @@ btnRestartGame.addEventListener('click', () => {
 
 
 board.addEventListener('click', (e) => {
-    mode = document.querySelector('input[name="mode"]:checked').value;
+    if (e.target.classList == 'spot' ){
+        mode = document.querySelector('input[name="mode"]:checked').value
+        mode == 'two-players' ? print(e) : juegoBot(e);    
 
-    mode == 'two-players' ? print(e) : juegoBot(e);    
-
-    
-    if (logicSpaces.some(boardStatus)) {
-        options.forEach( buttons => {
-            buttons.disabled = true;
-        });
+        if (logicSpaces.some(boardStatus)) {
+            options.forEach( buttons => {
+                buttons.disabled = true;
+            });        
+        }
     }
 })
 

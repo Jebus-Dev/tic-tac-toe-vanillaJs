@@ -144,9 +144,6 @@ btnNextRound.addEventListener('click', () => {
 
 export const restart = () => {
     
-    
-    console.log(getScores().tic)
-
     cleanModal();
     if (hasWon()) {
         let [a, b, c] = hasWon();
@@ -175,13 +172,10 @@ export const restart = () => {
 
 export const print = (pMove) => {
 
-        let spaceClass = pMove.target.className;
         let space  = pMove.target.id;
 
-        if ( spaceClass == 'spot' ) { 
-            
-            turn == 'X' ? playerOne(space)
-                        : playerTwo(space);
+        turn == 'X' ? playerOne(space)
+                    : playerTwo(space);
             
             printLogicTurn(space);
             dissablePressedButton(space);
@@ -194,10 +188,8 @@ export const print = (pMove) => {
                 updateScore();
                 winnerModal();
             } else {
-                turn = turn == 'X' ? turn = 'O'
-                                   : turn = 'X';
+                turno();
             }
-        }
 }
 
 
@@ -207,48 +199,42 @@ export const spotbot = () => {
     if ( logicSpaces[random] != '' ) {
         return spotbot();
     } else {
-        juegoBot(logicSpacesBot[random]);
+        setTimeout(() => {
+            juegoBot(logicSpacesBot[random]);
+        }, 500);
     }
 }
 
 const turno = () => {
-    turn = turn == 'X' ? 'O' 
-                       : 'X';
-    turn == 'O' && spotbot(); 
+    return turn = turn == 'X' ? 'O' 
+                        : 'X';
 }
 
 
 export const juegoBot = (move) =>  {
-    if (turn == 'X') {
+    if ( turn == 'X' ) {
         const space = move.target.id;
-        const spaceClass = move.target.classList;
-        if (spaceClass == 'spot') {
-            playerOne(space);
-            printLogicTurn(space);
-            dissablePressedButton(space);
-            if (!logicSpaces.every(boardStatus) && !hasWon()) {
-                setTimeout(() => {
-                    turno();
-                }, '500');
-            }
-        }   
-    } else {
+        playerOne(space);
+        printLogicTurn(space);
+        dissablePressedButton(space);    
+    } else if ( turn == 'O' ) {
         playerTwo(move);
         printLogicTurn(move);
         dissablePressedButton(move);
-        turn = 'X';
     }
 
-
     if (hasWon()) {
-        updateScore(),
-        winnerPlacePrint(),
-        winnerModal(),
+        console.log('gano')
+        updateScore();
+        winnerModal();
+        winnerPlacePrint();
         disableButtons();
     } else if (!hasWon() && logicSpaces.every(boardStatus)) {    
         updateScore();
         winnerModal();
         disableButtons();
+    } else {
+        turno() == 'O' && spotbot(); 
     }
 }
 
