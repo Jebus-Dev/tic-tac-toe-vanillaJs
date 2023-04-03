@@ -71,8 +71,6 @@ body {
     font-size: clamp(3em, 10vw, 4em);
     color: var(--accent-color);   
     text-align: center;
-    transition: all .3s;
-    cursor: crosshair;
 }
 
 .title-switch {
@@ -80,10 +78,6 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.title:hover{
-    transform: scale(1.1);
 }
 
 .checkbox {
@@ -242,8 +236,8 @@ button:active {
     background: var(--spot-color);
     box-shadow: 0 10px var(--border-color);
     outline: 4px solid var(--border-color);
-    transform: translateY(-10px);
     border: 4px solid var(--border-color);
+    transform: translateY(-10px);
     transition: transform .2s, box-shadow .2s ;
     border-radius: 30px;
     display: flex;
@@ -320,29 +314,6 @@ button:active {
     color: var(--tic-color);
 }
 
-.score-section .resetScore {
-    display: none;
-    width: var(--clamp-container);
-    position: absolute;
-    flex-direction: column;
-    align-items: center;
-    left: 50%;
-    transform: translate(-50%, 0);
-    background: #cc444b;
-    padding: 20px;
-    border: 4px solid #852b30;
-    border-radius: 10px; 
-    box-shadow: 0 10px #852b30;
-    cursor: pointer;
-    color: #fff;
-    opacity: 0;
-}
-
-.score-section:hover .resetScore {
-    display: flex;
-    opacity: 1;
-}
-
 .score-section .score {
     text-align: center;
     width: 33%;
@@ -351,6 +322,23 @@ button:active {
     background: var(--border-color);
 }
 
+.restart-score {
+    display: none;
+    width: 100%;
+    background: #df7373;
+    padding: 25px;
+    border: 4px solid #cc444b;
+    border-radius: 10px; 
+    box-shadow: 0 10px #cc444b;
+    cursor: pointer;
+    color: #fff;
+    position: absolute;
+    bottom: 80px;
+}
+
+.score-section:hover .restart-score {
+    display: block;
+}
 
 .modal-container::backdrop {
     background: rgba(0, 0, 0, .5);
@@ -460,20 +448,14 @@ button:active {
         font-size: 18px;
     }
     .main-container {
-        width: 95%; 
+        width: 90%; 
     }
 
     .chart-container {
-        gap: 20px;
+        gap: 25px 15px;
     }
     
-    .chart-container .spot {
-        
-        box-shadow: 0 8px var(--border-color);
-        outline: 4px solid var(--border-color);
-        border: 4px solid var(--border-color);
-        
-    }
+
 
     .title-switch {
         flex-flow: column;
@@ -492,23 +474,34 @@ button:active {
     }
 
     .score-section .score {
-        padding: 10px;
+        padding: 20px 10px;
     }
-    
-
 }
 
 @media only screen and (max-width: 480px) {
-
     .chart-container {
-        gap: 10px;
+        gap: 25px 10px;
+    }
+
+    .chart-container .spot {
+        box-shadow: 0 8px var(--border-color);
+        outline: 4px solid var(--border-color);
+        border: 4px solid var(--border-color);
+
     }
 
     .filters p {
         font-size: 14px;
     }
+
+    .score-section .score {
+        padding: 15px 5px;
+    }
+
     .score-section, .score-section p {
         gap: 5px;
         font-size: 12px;
     }
+
+
 }
