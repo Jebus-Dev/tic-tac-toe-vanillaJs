@@ -1,20 +1,26 @@
-import { hasWon, restart, winnerRound, logicSpaces, boardStatus } from "./logic.js";
-
+import { hasWon, restart, winnerRound, logicSpaces, boardStatus } from './logic.js';
+import { radioMode } from './storage.js';
 const btnCloseModal = document.querySelector('#close-modal');
 const btnNextRound = document.querySelector('#next-round');
 const modal = document.querySelector('#modal');
 
 export const winnerModal = () => {
-
+    let winnerp;
     modal.classList.add("modal-show");
     const firstElement = modal.lastElementChild;
     const winner = document.createElement("p");
-  
+    if (winnerRound == 'O' && radioMode == 'scorebot') {
+        winnerp = '😭YOU LOSE😭';
+    } else {
+        winnerp = '🎉YOU WIN🎉';
+    }
+
     if (winnerRound !== "draw") {
+
       const classWinner = winnerRound === "X" ? "paragraph-winner-tic" : "paragraph-winner-tac";
   
       winner.innerHTML = `
-        <p class="u-won"> YOU WON!! </p>
+        <p class="u-won"> ${winnerp} </p>
         <div>
           <p class="${classWinner}">${winnerRound}</p>
           <label class="takes-round">TAKES THE ROUND</label>
@@ -29,6 +35,9 @@ export const winnerModal = () => {
     modal.showModal();
 
 }
+
+
+
 
 export const cleanModal = () => {
     if (hasWon() || logicSpaces.every(boardStatus)) {
