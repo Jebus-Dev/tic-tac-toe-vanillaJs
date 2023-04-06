@@ -1,4 +1,4 @@
-import { logicSpaces } from "./logic.js";
+import { logicSpaces, botGame } from "./logic.js";
 export let logicSpacesBot = ['one', 'two', 'three', 'four', 'five','six', 'seven', 'eight', 'nine'];
 
 export const botMovement = () => {

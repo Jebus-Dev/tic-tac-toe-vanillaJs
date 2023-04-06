@@ -1,5 +1,5 @@
 import { secondPlayerName } from './js/logic.js';
-import { restart, print, logicSpaces, boardStatus, juegoBot} from './js/logic.js'
+import { pvpGame, botGame, restartGame, logicSpaces, boardStatus } from './js/logic.js'
 import { scoreLocalStorage, radioMode, scoreChange } from './js/storage.js'
 
 const board = document.querySelector('#chart-container');
@@ -20,7 +20,7 @@ radios.forEach(radio => {
 
 
 btnRestartGame.addEventListener('click', () => {
-    restart();
+    restartGame();
     options.forEach( button => {
         button.disabled = false;
     });
@@ -31,7 +31,7 @@ btnRestartGame.addEventListener('click', () => {
 board.addEventListener('click', (e) => {
     if (e.target.classList == 'spot' ){
         let mode = document.querySelector('input[name="mode"]:checked').value
-        mode == 'two-players' ? print(e) : juegoBot(e);    
+        mode == 'two-players' ? pvpGame(e) : botGame(e);    
 
         if (logicSpaces.some(boardStatus)) {
             options.forEach( buttons => {

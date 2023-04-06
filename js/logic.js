@@ -1,6 +1,7 @@
 import { playerOne, playerTwo } from './turn.js';
 import { setScores, scorepvp, scorebot, radioMode } from './storage.js';
 import { winnerModal, cleanModal } from './modal.js';
+import { botMovement } from './bot.js';
 
 const scoreBotContainer = document.querySelector('#botScore');
 const scoreBot = scoreBotContainer.querySelector('p');
@@ -89,26 +90,12 @@ export const boardStatus = (slogicSpaces) => {
     return slogicSpaces != '';
 }
 
-
-
-export const spotbot = () => {
-
-    let random = Math.floor(Math.random() * (9 - 0 + 1)) + 0;
-    if ( logicSpaces[random] != '' ) {
-        return spotbot();
-    } else {
-        setTimeout(() => {
-            juegoBot(logicSpacesBot[random]);
-        }, 500);
-    }
-}
-
 const playerTurn = () => {
     return turn = turn == 'X' ? 'O' 
                         : 'X';
 }
 
-export const restart = () => {
+export const restartGame = () => {
     
     cleanModal();
     if (hasWon()) {
@@ -118,7 +105,7 @@ export const restart = () => {
         slots[b].classList.remove(winner);
         slots[c].classList.remove(winner);
     }
-    logicSpaces = ['', '', '', '', '','', '', '',];
+    logicSpaces = ['', '', '', '', '','', '', '', ''];
     
     slots.forEach(buttons => {
         buttons.disabled = false; 
@@ -136,7 +123,7 @@ export const restart = () => {
 
 
 
-export const print = (pMove) => {
+export const pvpGame = (pMove) => {
 
         let space  = pMove.target.id;
 
@@ -145,6 +132,7 @@ export const print = (pMove) => {
             
             setLogicTurn(space);
             dissablePressedButton(space);
+            console.log(logicSpaces);
             if (hasWon()) {
                 updateScore(),
                 winnerPlacePrint(),
@@ -158,7 +146,7 @@ export const print = (pMove) => {
             }
 }
 
-export const juegoBot = (move) =>  {
+export const botGame = (move) =>  {
     if ( turn == 'X' ) {
         const space = move.target.id;
         playerOne(space);
@@ -180,7 +168,7 @@ export const juegoBot = (move) =>  {
         winnerModal();
         disableButtons();
     } else {
-        playerTurn() == 'O' && spotbot(); 
+        playerTurn() == 'O' && botMovement(); 
     }
 }
 

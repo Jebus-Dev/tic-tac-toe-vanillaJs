@@ -1,4 +1,4 @@
-import { hasWon, restart, winnerRound, logicSpaces, boardStatus } from './logic.js';
+import { hasWon, restartGame, winnerRound, logicSpaces, boardStatus } from './logic.js';
 import { radioMode } from './storage.js';
 const btnCloseModal = document.querySelector('#close-modal');
 const btnNextRound = document.querySelector('#next-round');
@@ -51,6 +51,6 @@ btnCloseModal.addEventListener('click', () => {
 })
 
 btnNextRound.addEventListener('click', () => {
-    restart();
+    restartGame();
     modal.close();
 })
