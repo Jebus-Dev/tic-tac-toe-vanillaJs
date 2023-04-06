@@ -12,7 +12,6 @@ export let scorebot = {
     tac: 0
 }
 export const scoreChange = (name) => {
-    console.log(name);
     name == 'two-players' ? scoreLocalStorage('scorepvp') : scoreLocalStorage('scorebot');
     radioMode = name == 'two-players' ? 'scorepvp' : 'scorebot';
 }
