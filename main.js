@@ -1,3 +1,4 @@
+import { secondPlayerName } from './js/logic.js';
 import { restart, print, logicSpaces, boardStatus, juegoBot} from './js/logic.js'
 import { scoreLocalStorage, radioMode, scoreChange } from './js/storage.js'
 
@@ -13,6 +14,7 @@ scoreLocalStorage(radioMode);
 radios.forEach(radio => {
     radio.addEventListener('change', function() {
         scoreChange(radio.value);
+        secondPlayerName(radio.value);
     });
   });
 

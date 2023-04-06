@@ -2,12 +2,14 @@ import { playerOne, playerTwo } from './turn.js';
 import { setScores, scorepvp, scorebot, radioMode } from './storage.js';
 import { winnerModal, cleanModal } from './modal.js';
 
-
+const scoreBotContainer = document.querySelector('#botScore');
+const scoreBot = scoreBotContainer.querySelector('p');
 export let turn = 'X';
 export let logicSpaces = ['', '', '', '', '','', '', '', ''];
 export let logicSpacesBot = ['one', 'two', 'three', 'four', 'five','six', 'seven', 'eight', 'nine'];
 export const slots = document.querySelectorAll('.spot');
 export let winnerRound;
+
 const winningCombos = [
     [0, 1, 2],
     [3, 4, 5],
@@ -179,6 +181,14 @@ export const juegoBot = (move) =>  {
         disableButtons();
     } else {
         playerTurn() == 'O' && spotbot(); 
+    }
+}
+
+export const secondPlayerName = (name) => {
+    if (name == 'bot') {
+        scoreBot.textContent = 'BOT';
+    } else {
+        scoreBot.textContent = 'PLAYER TWO';
     }
 }
 
