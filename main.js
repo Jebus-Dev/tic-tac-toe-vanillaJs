@@ -1,12 +1,22 @@
-import { restart, print, logicSpaces, boardStatus, juegoBot, mostrartScoresLocalStorage} from './modules/logic.js'
-
+import { restart, print, logicSpaces, boardStatus, juegoBot} from './js/logic.js'
+import { scoreLocalStorage, setScores } from './js/storage.js'
 const board = document.querySelector('#chart-container');
 const btnRestartGame = document.querySelector('#btn-restart');
 const options = document.querySelectorAll('input[name="mode"]');
 const toggleColor = document.querySelector('#color-toggle');
-let mode;
+const radios = document.querySelectorAll('input[type="radio"][name="mode"]');
+export let radioMode = 'scorepvp';
 
-mostrartScoresLocalStorage();
+
+
+radios.forEach(radio => {
+    radio.addEventListener('change', function() {
+        let name = radio.value;
+        name == 'two-players' ? scoreLocalStorage('scorepvp') : scoreLocalStorage('scorebot');
+        radioMode = name == 'two-players' ? 'scorepvp' : 'scorebot';
+    });
+  });
+
 
 btnRestartGame.addEventListener('click', () => {
     restart();
@@ -19,7 +29,7 @@ btnRestartGame.addEventListener('click', () => {
 
 board.addEventListener('click', (e) => {
     if (e.target.classList == 'spot' ){
-        mode = document.querySelector('input[name="mode"]:checked').value
+        let mode = document.querySelector('input[name="mode"]:checked').value
         mode == 'two-players' ? print(e) : juegoBot(e);    
 
         if (logicSpaces.some(boardStatus)) {
@@ -29,10 +39,6 @@ board.addEventListener('click', (e) => {
         }
     }
 })
-
-
-
-
 
 toggleColor.addEventListener('click', () => {
     toggleColor.checked ? setUserTheme('dark') : setUserTheme('light');  
