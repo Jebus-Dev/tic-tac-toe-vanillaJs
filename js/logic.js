@@ -1,7 +1,6 @@
 import { playerOne, playerTwo } from './turn.js';
-import { setScores, scorepvp, scorebot } from './storage.js';
+import { setScores, scorepvp, scorebot, radioMode } from './storage.js';
 import { winnerModal, cleanModal } from './modal.js';
-import { radioMode } from '../main.js';
 
 
 export let turn = 'X';
@@ -170,7 +169,6 @@ export const juegoBot = (move) =>  {
     }
 
     if (hasWon()) {
-        console.log('gano')
         updateScore();
         winnerModal();
         winnerPlacePrint();

@@ -1,4 +1,5 @@
 
+export let radioMode = 'scorepvp';
 export let scorepvp = {
     tic: 0,
     draw: 0,
@@ -10,6 +11,13 @@ export let scorebot = {
     draw: 0,
     tac: 0
 }
+export const scoreChange = (name) => {
+    console.log(name);
+    name == 'two-players' ? scoreLocalStorage('scorepvp') : scoreLocalStorage('scorebot');
+    radioMode = name == 'two-players' ? 'scorepvp' : 'scorebot';
+}
+
+
 
 export const setScores = (mode) => {
     let scores = mode == 'scorepvp' ? scorepvp : scorebot;
@@ -35,7 +43,6 @@ const getScores = (mode) => {
 export const scoreLocalStorage = (mode) => {
     
     let scores = mode == 'scorepvp' ? scorepvp: scorebot;
-
     const scoresRecuperados = getScores(mode);
     scores.tic = scoresRecuperados.tic;
     scores.draw = scoresRecuperados.draw;
@@ -45,3 +52,4 @@ export const scoreLocalStorage = (mode) => {
     document.querySelector('#score-tac').innerHTML = scoresRecuperados.tac;
     
 }
+

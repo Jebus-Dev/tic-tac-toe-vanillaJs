@@ -1,20 +1,18 @@
 import { restart, print, logicSpaces, boardStatus, juegoBot} from './js/logic.js'
-import { scoreLocalStorage, setScores } from './js/storage.js'
+import { scoreLocalStorage, radioMode, scoreChange } from './js/storage.js'
 
 const board = document.querySelector('#chart-container');
 const btnRestartGame = document.querySelector('#btn-restart');
 const options = document.querySelectorAll('input[name="mode"]');
 const toggleColor = document.querySelector('#color-toggle');
 const radios = document.querySelectorAll('input[type="radio"][name="mode"]');
-export let radioMode = 'scorepvp';
+
 
 scoreLocalStorage(radioMode);
 
 radios.forEach(radio => {
     radio.addEventListener('change', function() {
-        let name = radio.value;
-        name == 'two-players' ? scoreLocalStorage('scorepvp') : scoreLocalStorage('scorebot');
-        radioMode = name == 'two-players' ? 'scorepvp' : 'scorebot';
+        scoreChange(radio.value);
     });
   });
 
