@@ -132,7 +132,6 @@ export const pvpGame = (pMove) => {
             
             setLogicTurn(space);
             dissablePressedButton(space);
-            console.log(logicSpaces);
             if (hasWon()) {
                 updateScore(),
                 winnerPlacePrint(),
